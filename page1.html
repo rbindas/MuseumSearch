@@ -32,7 +32,7 @@
 </head>
 
 <body>
-	 <nav class="navbar navbar-default fixed-top" role="navigation">
+   <nav class="navbar navbar-default fixed-top" role="navigation">
       <div class="container">
       <!-- Navbar Header [contains both toggle button and navbar brand] -->
          <div class="navbar-header">
@@ -44,13 +44,13 @@
                <span class="icon-bar"></span>   
             </button>                  
             <!-- Navbar Brand -->
-            <span class="navbar-brand">Museums-R-Us</span>
+            <span class="navbar-brand">Personalize Itinerary</span>
          </div> 
             
       <!-- Navbar Collapse-->
          <div class="navbar-collapse collapse">
          <!-- Navbar Menu -->
-            <ul class="nav navbar-nav navbar-right">        
+            <ul class="nav navbar-nav navbar-right">     
                <li><a href="index.html"><i class="fa fa-home fa-fw " aria-hidden="true"></i>&nbsp; Home</a></li>
                <li><a href="page1.html"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Personalize Itinerary</a></li>
                <li><a></a></li>
@@ -59,35 +59,74 @@
       </div>
    </nav> 
 
-   <div class="container">
 
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">Culture In Time!</h1>
-          <p>Summary of what this site is</p>
-          
-        </div>
-      </div>
-
- 
       <div class="container">
-         <h3>Ready To Search?</h3>
-         <br>
     
-          <div id="museum-view"></div>
-    
-          <form id="museum-type-input">
-            <label for="type-input">Type of Museum</label>
-            <input type="text" id="type-input">
-            <hr>
-            <input id="add-museum" type="submit" value="Search">
-         </form> 
-    
-      <div id="gifs-appear-here"></div>
-      
-      
-     
+        <div class="row">
+
+         <div class="col-md-4">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title"><strong>Add Museum To Visit</strong></h3>
+               </div>
+               <div class="panel-body">
+                  <form>
+                     <!--<div class="form-group">
+                        <label for="museum-type-input">Type of Museum</label>
+                        <input type="text" class="form-control" id="museum-type-input">
+                     </div> -->
+
+                     <div class="form-group">
+                        <label for="museum-name-input">Museum Name</label>
+                        <input type="text" class="form-control" id="museum-name-input">
+                     </div>
+                
+                     <div class="form-group">
+                        <label for="city-input">City</label>
+                        <input type="text" class="form-control" id="city-input">
+                     </div>
+
+                     <div class="form-group">
+                        <label for="time-inputd">Visit Time (Date)</label>
+                        <input type="date" class="form-control" id="time-input">
+                     </div>
+
+                     <button  class="btn btn-primary" id="add-museum">Add To List</button>
+                  </form>               
+               </div>
+            </div> 
+         </div>
+          
+         <div class="col-md-8">
+                
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>List of Museum To Visit</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="visit-schedule">           
+                            <thead>
+                                <tr>
+                                    <th>Museum Name</th>
+                                    <th>City</th>
+                                    <th>Address</th>
+                                    <th>Visit Date</th>
+                                    <th>Direction? or Rating?</th>
+                                    
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>                    
+                </div>
+
+
+
+
+
+       
+            
    
         
     <script type="text/javascript" src="assets/javascript/museum.js"></script>
