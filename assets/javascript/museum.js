@@ -1,22 +1,15 @@
-
-      
-  var city = $("#city-input").val().trim();
   
-//Museum data from GeoNames API - but not working when using user's input  
-  // $.ajax({
-  //   url: "http://api.geonames.org/searchJSON?q="+city+"&maxRows=20&featureCode=MUS&username=hbriggs",
-  //   method: "GET"
-  // }).done(function(response) {
-  //    console.log(response);
-  // });
-
+$("#add-city").on("click", function(event){
+  event.preventDefault();
+ 
+  var newCity = $("#city-input").val();
 
 //=============================================================  
-//Museum data from GeoNames API
+//Museum data from GeoNames API with city name hardcoded
 //=============================================================
   
   $.ajax({
-    url: "http://api.geonames.org/searchJSON?q=Madrid&maxRows=10&featureCode=MUS&username=hbriggs", 
+    url: "http://api.geonames.org/searchJSON?q=" + newCity + "&maxRows=10&featureCode=MUS&username=hbriggs",
     method: "GET"
   }).done(function(response) {
       console.log(response);
@@ -39,9 +32,9 @@
 //==============================================================
 //Weather data from Open Weather Map API
 //============================================================= 
-    
+
     var APIKey = "c4328a51ed2c2506d6da16835ab77fe0"
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Madrid&units=imperial&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + newCity + "&units=imperial&appid=" + APIKey;
   
     $.ajax({
       url: queryURL, 
@@ -60,7 +53,10 @@
       $weatherDiv.append($lat);
       $("#weather-appear-here").prepend($weatherDiv);
     });
-  
+
+    $("#city-input").val("");
+
+  });
 //==============================================================
   
   //Place search data from Google Places API
