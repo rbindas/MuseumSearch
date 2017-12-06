@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
    <!--  <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
-    <title>Museum Search</title>
+   <title>Museum Search</title>
     
-    <!-- Latest compiled and minified CSS -->
+   <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-   <!-- Optional theme -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-zF4BRsG/fLiTGfR9QL82DrilZxrwgY/+du4p/c7J72zZj+FLYq4zY00RylP9ZjiT" crossorigin="anonymous">
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    
+   <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> -->
+
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    
     
-    <script src="https://use.fontawesome.com/064a5d298d.js"></script>
+   <script src="https://use.fontawesome.com/064a5d298d.js"></script>
     
-    <link rel="stylesheet" href="assets/css/style.css">
+   <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- LINK TO jQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    
+   <!-- LINK TO EVENTFUL API -->
+   <!-- <script type="text/javascript" src="http://api.eventful.com/js/api"></script> -->
 
-    <!-- LINK TO FIREBASE -->
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+   <!-- LINK TO FIREBASE -->
+   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 
-    <!-- LINK TO GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Artifika" rel="stylesheet">
+   <!-- LINK TO GOOGLE FONTS -->
+   <link href="https://fonts.googleapis.com/css?family=Artifika" rel="stylesheet">
 
 </head>
 
@@ -81,17 +82,19 @@
           <div id="museum-view"></div>
     
           <form id="museum-type-input">
-            <label for="type-input">Type of Museum</label>
-            <input type="text" id="type-input">
-            <hr>
-            <!-- <input id="add-museum" type="submit" value="Search"> -->
-            <button class="button"><span>Search </span></button>
+            <!-- <label for="country-input">Country</label>
+            <input type="text" id="country-input">
+            <br>  -->
+            <label for="city-input">City</label>
+            <input type="text" id="city-input">
+            <br>
+            <button id="add-museum" class="button"><span>Search </span></button>
          </form> 
     
-      <div id="gifs-appear-here"></div>
+      <div id="weather-appear-here"></div>
+      <div id="museum-appear-here"></div>
       
-      
-     
+   
    
         
     <script type="text/javascript" src="assets/javascript/museum.js"></script>
