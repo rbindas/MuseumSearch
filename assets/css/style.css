@@ -1,24 +1,31 @@
-/*body {
-	background: no-repeat url(../images/titleimg.jpg);
+body {
+	background: url("../images/background.jpg"); 
+	background-repeat: no-repeat;
 	background-size: cover;
-    background-position: center;
-}*/
+}
+
+.navbar-brand img {
+	float: left;
+	width: 25px;
+	height: auto;
+}
 
 .navbar-brand {
-	font-size: 25px;	
+	font-size: 25px;
+
 }
 
-.navbar {
+/*.navbar {
 	padding-top: 10px;
 	padding-bottom: 10px;
-}
+}*/
 
 .navbar-default {
     background: #3C0E50;   
 }
 
 ul.nav a:hover { 
-	background: #C06DB8 !important; 
+	background: #703789 !important; 
 }
     
 .jumbotron {
@@ -31,7 +38,7 @@ ul.nav a:hover {
 
 .button {
   border-radius: 4px;
-  background-color: #C06DB8;
+  background-color: #7C3D97;
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -82,4 +89,15 @@ p {
 
 #museum-view {
   padding-left: 0px;
+}
+
+h4 {
+	font-family: 'Artifika', serif;
+	color: black !important;
+}
+
+/*    PAGE1            */
+.panel-heading {
+    background: #3C0E50 !important;
+    
 }
