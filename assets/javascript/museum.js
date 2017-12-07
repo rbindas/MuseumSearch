@@ -1,36 +1,14 @@
-  
+
 $("#add-city").on("click", function(event){
   event.preventDefault();
- 
+  
+  var lat;
+  var long;
+  var newState = $("#state-input").val();
   var newCity = $("#city-input").val();
 
-//=============================================================  
-//Museum data from GeoNames API with city name hardcoded
-//=============================================================
-  
-  $.ajax({
-    url: "http://api.geonames.org/searchJSON?q=" + newCity + "&maxRows=10&featureCode=MUS&username=hbriggs",
-    method: "GET"
-  }).done(function(response) {
-      console.log(response);
-      // $("#museum-appear-here").text(JSON.stringify(response));
-      var results = response.data;
-      
-      for (var i = 0; i <results.length; i++) {
-        var result = results[i];
-        var $museumDiv = $("<div>");
-        var $p = $("<p>").text("Museum Name: " + result.name);
-        
-        console.log(result.name);
-        
-        $museumDiv.append($p);
-        
-        $("#museum-appear-here").append($museumDiv);
-      }       
-  });
-
 //==============================================================
-//Weather data from Open Weather Map API
+//Weather data from Open Weather Map API to obtain location longitude and latitude
 //============================================================= 
 
     var APIKey = "c4328a51ed2c2506d6da16835ab77fe0"
@@ -40,48 +18,93 @@ $("#add-city").on("click", function(event){
       url: queryURL, 
       method: "GET"
     }).done(function(response) {
-      console.log(response);
-      // var weatherResults = response.data;
+      // console.log(response);
+
       var $weatherDiv = $("<div>");
-      var $name = $("<p>").text("City: " + response.name);
-      var $temp = $("<p>").text("Temperature (F): " + response.main.temp);
-      var $long = $("<p>").text("Longitude: " + response.coord.lon);
-      var $lat = $("<p>").text("Latitude: " + response.coord.lat);
-       $weatherDiv.append($name);
-      $weatherDiv.append($temp);
-      $weatherDiv.append($long);
-      $weatherDiv.append($lat);
-      $("#weather-appear-here").prepend($weatherDiv);
+      var $name = $("<p><h4><strong>" + response.name + "'s Museums</strong></h4></p>"); 
+
+      lat = response.coord.lat;
+      long = response.coord.lon;
+
+      initialize();
+      $weatherDiv.append($name);
+
+      $("#weather-location").prepend($weatherDiv);
+
+    });
+    
+    $("#state-input").val("");
+    $("#city-input").val("");
+    $("#weather-location").empty();
+    $("#museum-list").empty();
+  
+//==============================================================
+//Google Place API code to get list of museums and map
+//==============================================================
+  var map;
+  var service;
+  var infowindow; 
+
+  function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
     });
 
-    $("#city-input").val("");
+    infowindow = new google.maps.InfoWindow();
 
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    });
+  }
+
+  function initialize() {
+    var selectCity = new google.maps.LatLng(lat,long);
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: selectCity,
+      zoom: 15
+    });
+
+    var request = {
+      location: selectCity,
+      radius: '100',
+      query: ['museum']
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback);
+  }
+
+  function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        console.log(results);
+        var place = results[i];
+        
+        var $museumDiv = $("<div>");
+        var $placeInfo = $("<li>").text(place.name);
+        
+        $museumDiv.append($placeInfo);
+        
+        $("#museum-list").append($museumDiv);
+
+        createMarker(results[i]);
+
+
+
+
+
+      }
+    }
+  }
+  
   });
-//==============================================================
-  
-  //Place search data from Google Places API
-  // var APIKey = "AIzaSyAqftO0kkpkObVYIPofNt_VDx02gllY0wA"
-  // var queryURL = "https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key="+APIKey+"input=museum+near%20Madrid";
-  
-  // $.ajax({
-  //   url: queryURL, 
-  //   method: "GET"
-  // }).done(function(response) {
-  //   console.log(response);
-  
-    // var $locationDiv = $("<div>");
-    // var $name = $("<p>").text("City: " + response.name);
-    // var $museum = $("<p>").text("Museum: " + response.main.temp);
-    
-    // $locationDiv.append($name);
-    // $locationDiv.append($museum);
-    
-    // $("#weather-appear-here").prepend($weatherDiv);
-  
-  // });
+   
+ 
 
-  
-  
 //==============================================================
 // TABLE
 //==============================================================

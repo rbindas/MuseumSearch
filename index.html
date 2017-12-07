@@ -76,29 +76,32 @@
 
  
       <div class="container">
-         <h3>Ready To Search?</h3>
-         <br>
-    
-          <div id="museum-view"></div>
-    
-          <form id="museum-type-input">
-            <!-- <label for="country-input">Country</label>
-            <input type="text" id="country-input">
-            <br> --> 
-            <label for="city-input">City</label>
-            <input type="text" id="city-input">
+         <div class="row">
+            <h4>Ready To Search?</h4>
             <br>
-            <button id="add-city" class="button"><span>Search </span></button>
-         </form> 
+            <div class="col-md-4" id="museum-type-input">
+               <form>
+                  <div class="form-group">
+                     <label for="city-input">City To Visit</label>
+                     <input type="text" class="form-control" placeholder="City Name" id="city-input">
+                  </div>
+                  <button id="add-city" class="button"><span>Search </span></button>
+               </form>
+               <br>
+               <div class="row" id="museum-view">
+                  <div id="weather-location"></div>
+                  <div id="museum-list"></div>
+               </div>
+            </div>
+            
+            <div class="col-md-8" id="map"></div> 
+              
+      </div>   
     
-      <div id="weather-appear-here"></div>
-      <div id="museum-appear-here"></div>
-      
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcTThnPkoux2za12FFo1Lf4vPLBdskGd4&libraries=places" async defer></script>
    
-   
-        
-    <script type="text/javascript" src="assets/javascript/museum.js"></script>
-    
+   <script type="text/javascript" src="assets/javascript/museum.js"></script>
+
 </div>
 
 

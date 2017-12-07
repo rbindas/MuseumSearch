@@ -6,26 +6,21 @@
 
 .navbar-brand {
 	font-size: 25px;	
-
 }
 
 .navbar {
 	padding-top: 10px;
 	padding-bottom: 10px;
-
 }
 
 .navbar-default {
-    background: #3C0E50;
-    
+    background: #3C0E50;   
 }
 
 ul.nav a:hover { 
 	background: #C06DB8 !important; 
 }
     
-
-
 .jumbotron {
 	background-image: url(../images/titleimg.jpg);
     background-size: cover;
@@ -45,7 +40,7 @@ ul.nav a:hover {
   width: 95px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 5px;
+  /*margin: 5px;*/
 }
 .button span {
   cursor: pointer;
@@ -71,3 +66,13 @@ ul.nav a:hover {
   opacity: 1;
   right: 0;
 }
+
+#city-input {
+  width: 300px;
+}
+
+#map {
+     height: 600px;
+     width: 65%;
+    }
+
