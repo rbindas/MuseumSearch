@@ -21,7 +21,7 @@ $("#add-city").on("click", function(event){
       // console.log(response);
 
       var $weatherDiv = $("<div>");
-      var $name = $("<p><h4><strong>" + response.name + "'s Museums</strong></h4></p>"); 
+      var $name = $("<h4><strong>" + response.name + "'s Museums</strong></h4>"); 
 
       lat = response.coord.lat;
       long = response.coord.lon;
@@ -85,25 +85,21 @@ $("#add-city").on("click", function(event){
         var place = results[i];
         
         var $museumDiv = $("<div>");
-        var $placeInfo = $("<li>").text(place.name);
+        var name = place.name;
+        var address = place.formatted_address;
         
-        $museumDiv.append($placeInfo);
+        $museumDiv.append('<input type="checkbox" value=" ' + name + ' ">' + '  ' + name);
+        $museumDiv.append('<p>' + address);
         
         $("#museum-list").append($museumDiv);
 
         createMarker(results[i]);
-
-
-
-
-
       }
     }
   }
   
   });
    
- 
 
 //==============================================================
 // TABLE

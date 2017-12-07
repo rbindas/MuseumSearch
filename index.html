@@ -78,25 +78,28 @@
       <div class="container">
          <div class="row">
             <h4>Ready To Search?</h4>
-            <br>
-            <div class="col-md-4" id="museum-type-input">
-               <form>
-                  <div class="form-group">
-                     <label for="city-input">City To Visit</label>
-                     <input type="text" class="form-control" placeholder="City Name" id="city-input">
-                  </div>
-                  <button id="add-city" class="button"><span>Search </span></button>
+            <div id="museum-type-input">
+               <form action="/action_page.php">
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="City Name" id="city-input"
+                     name="search">
+                     <div class="input-group-btn">
+                        <button id="add-city" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                     </div>
+                  </div>   
                </form>
-               <br>
-               <div class="row" id="museum-view">
-                  <div id="weather-location"></div>
-                  <div id="museum-list"></div>
-               </div>
+            </div>
+         </div>
+         <br>
+               
+         <div class="row"> 
+            <div class="col-md-4" id="museum-view">
+               <div id="weather-location"></div>
+               <div id="museum-list"></div>
             </div>
             
-            <div class="col-md-8" id="map"></div> 
-              
-      </div>   
+            <div class="col-md-8" id="map"></div>     
+         </div>   
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcTThnPkoux2za12FFo1Lf4vPLBdskGd4&libraries=places" async defer></script>
    

@@ -67,12 +67,19 @@ ul.nav a:hover {
   right: 0;
 }
 
-#city-input {
-  width: 300px;
+#museum-type-input {
+  width: 35%;
 }
 
 #map {
-     height: 600px;
+     height: 700px;
      width: 65%;
     }
 
+p {
+  margin-left: 15px;
+}
+
+#museum-view {
+  padding-left: 0px;
+}
