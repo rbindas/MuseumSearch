@@ -1,0 +1,6 @@
+@media print
+{
+.print {display: block !important;}
+.noprint {display: none;}
+}
+

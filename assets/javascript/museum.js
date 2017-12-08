@@ -179,5 +179,51 @@ $("#add-city").on("click", function(event){
 
 
 
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
+    authDomain: "museumsearch-4d634.firebaseapp.com",
+    databaseURL: "https://museumsearch-4d634.firebaseio.com",
+    projectId: "museumsearch-4d634",
+    storageBucket: "museumsearch-4d634.appspot.com",
+    messagingSenderId: "440322454720"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+
+  //Button to add trains
+  $("#add-museum").on("click", function(event) {
+  event.preventDefault();
+
+  // Grabs user input
+  var museumName = $("#museum-name-input").val().trim();
+  var museumCity = $("#city-input").val().trim();
+  var visitDate = $("#time-input").val().trim();
+  var notes = $("#notes-input").val().trim();
+  
+  
+  // Uploads data to the database
+  database.ref().push({
+    name: museumName,
+    destin: museumCity,
+    date: visitDate, 
+    note: notes   
+  });
+
+  // Logs everything to console
+  console.log(museumName);
+  console.log(museumCity);
+  console.log(visitDate);
+  console.log(notes);
+  
+  //Empty out form
+  $("#museum-name-input").val("");
+  $("#city-input").val("");
+  $("#time-input").val("");
+  $("#notes-input").val("");
+ 
+});
+
 
 

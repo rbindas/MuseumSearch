@@ -13,6 +13,20 @@ body {
 .navbar-brand {
 	font-size: 25px;	
 }
+	background: url("../images/background.jpg"); 
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.navbar-brand img {
+	float: left;
+	width: 25px;
+	height: auto;
+}
+
+.navbar-brand {
+	font-size: 25px;
+}
 
 .navbar-default {
     background: #3C0E50;   
@@ -32,7 +46,7 @@ ul.nav a:hover {
 
 .button {
   border-radius: 4px;
-  background-color: #703789;
+  background-color: #7C3D97;
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -86,8 +100,8 @@ p {
 }
 
 h4 {
-  font-family: 'Artifika', serif;
-  color: black !important;
+	font-family: 'Artifika', serif;
+	color: black !important;
 }
 
 /*    PAGE1            */
