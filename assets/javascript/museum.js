@@ -81,7 +81,7 @@ $("#add-city").on("click", function(event){
   function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
-        console.log(results);
+        // console.log(results);
         var place = results[i];
         
         var $museumDiv = $("<div>");
@@ -90,7 +90,7 @@ $("#add-city").on("click", function(event){
         
         $museumDiv.append('<input type="checkbox" value=" ' + name + ' ">' + '  ' + name);
         $museumDiv.append('<p>' + address);
-        
+
         $("#museum-list").append($museumDiv);
 
         createMarker(results[i]);
@@ -120,9 +120,8 @@ $("#add-city").on("click", function(event){
 
   var database = firebase.database();
 
-  //Button to add museums
   $("#add-museum").on("click", function(event) {
-  event.preventDefault();
+    event.preventDefault();
 
     // Grabs user input
     var museumName = $("#museum-name-input").val().trim();
@@ -142,11 +141,11 @@ $("#add-city").on("click", function(event){
     });
 
     // Logs everything to console
-    console.log(museumName);
-    console.log(museumCity);
-    console.log(museumAddress);
-    console.log(visitDate);
-    console.log(notes);
+    // console.log(museumName);
+    // console.log(museumCity);
+    // console.log(museumAddress);
+    // console.log(visitDate);
+    // console.log(notes);
   
     //Empty out form
     $("#museum-name-input").val("");
@@ -160,7 +159,7 @@ $("#add-city").on("click", function(event){
   //  Firebase event for adding train to the database & row in the html when a user adds an entry
   database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
-    console.log(childSnapshot.val());
+    // console.log(childSnapshot.val());
 
     // Store everything into a variable.
     var museumName = childSnapshot.val().name;
@@ -178,52 +177,7 @@ $("#add-city").on("click", function(event){
   });
 
 
-
-// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
-    authDomain: "museumsearch-4d634.firebaseapp.com",
-    databaseURL: "https://museumsearch-4d634.firebaseio.com",
-    projectId: "museumsearch-4d634",
-    storageBucket: "museumsearch-4d634.appspot.com",
-    messagingSenderId: "440322454720"
-  };
-  firebase.initializeApp(config);
-
-  var database = firebase.database();
-
-  //Button to add trains
-  $("#add-museum").on("click", function(event) {
-  event.preventDefault();
-
-  // Grabs user input
-  var museumName = $("#museum-name-input").val().trim();
-  var museumCity = $("#city-input").val().trim();
-  var visitDate = $("#time-input").val().trim();
-  var notes = $("#notes-input").val().trim();
+//=======================================================================
+//Populate Museum Name if check box
+//=======================================================================
   
-  
-  // Uploads data to the database
-  database.ref().push({
-    name: museumName,
-    destin: museumCity,
-    date: visitDate, 
-    note: notes   
-  });
-
-  // Logs everything to console
-  console.log(museumName);
-  console.log(museumCity);
-  console.log(visitDate);
-  console.log(notes);
-  
-  //Empty out form
-  $("#museum-name-input").val("");
-  $("#city-input").val("");
-  $("#time-input").val("");
-  $("#notes-input").val("");
- 
-});
-
-
-
