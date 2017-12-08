@@ -14,6 +14,17 @@ body {
 	font-size: 25px;	
 }
 
+.navbar-brand img {
+	float: left;
+	width: 25px;
+	height: auto;
+}
+
+.navbar-brand {
+	font-size: 25px;
+}
+
+
 .navbar-default {
     background: #3C0E50;   
 }
@@ -86,9 +97,9 @@ p {
 }
 
 h4 {
-  font-family: 'Artifika', serif;
-  color: black !important;
-}
+	font-family: 'Artifika', serif;
+	color: black !important;
+
 
 /*    PAGE1            */
 .panel-heading {
@@ -98,4 +109,5 @@ h4 {
 @media print {
 .print {display: block !important;}
 .noprint {display: none;}
+
 }
