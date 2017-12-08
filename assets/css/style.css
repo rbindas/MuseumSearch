@@ -13,13 +13,6 @@ body {
 .navbar-brand {
 	font-size: 25px;	
 }
-<<<<<<< HEAD
-=======
-	background: url("../images/background.jpg"); 
-	background-repeat: no-repeat;
-	background-size: cover;
-}
->>>>>>> 8b3a4186b56d1f202cffdf8ffc98e25da405ab10
 
 .navbar-brand img {
 	float: left;
@@ -30,10 +23,6 @@ body {
 .navbar-brand {
 	font-size: 25px;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 8b3a4186b56d1f202cffdf8ffc98e25da405ab10
 
 .navbar-default {
     background: #3C0E50;   
@@ -53,11 +42,7 @@ ul.nav a:hover {
 
 .button {
   border-radius: 4px;
-<<<<<<< HEAD
-  background-color: #703789;
-=======
   background-color: #7C3D97;
->>>>>>> 8b3a4186b56d1f202cffdf8ffc98e25da405ab10
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -113,11 +98,6 @@ p {
 h4 {
 	font-family: 'Artifika', serif;
 	color: black !important;
-<<<<<<< HEAD
-
-=======
-}
->>>>>>> 8b3a4186b56d1f202cffdf8ffc98e25da405ab10
 
 /*    PAGE1            */
 .panel-heading {
@@ -127,8 +107,4 @@ h4 {
 @media print {
 .print {display: block !important;}
 .noprint {display: none;}
-<<<<<<< HEAD
-
-=======
->>>>>>> 8b3a4186b56d1f202cffdf8ffc98e25da405ab10
 }
