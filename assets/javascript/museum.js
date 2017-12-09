@@ -79,6 +79,7 @@ $("#add-city").on("click", function(event){
   }
 
   function callback(results, status) {
+
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
         // console.log(results);
@@ -87,15 +88,29 @@ $("#add-city").on("click", function(event){
         var $museumDiv = $("<div>");
         var name = place.name;
         var address = place.formatted_address;
-        
-        $museumDiv.append('<input type="checkbox" value=" ' + name + ' ">' + '  ' + name);
+
+        $museumDiv.append('<input type="checkbox" id="museum-name" name="museumName" value=" ' + name + ' ">' + '  ' + name);
         $museumDiv.append('<p>' + address);
 
-        $("#museum-list").append($museumDiv);
+        $("#museum-list").append($museumDiv);    
 
         createMarker(results[i]);
+      } 
+      $("#museum-list").append('<button type="btn btn-default" id="check-box">Add To My List</button><hr>'); 
 
-      }
+      $("#check-box").on("click", function(){
+        event.preventDefault();
+        var initList = $museumDiv.val();
+        console.log(initList);
+
+        $.each($("input[name='museumName']:checked"), function() {
+         
+          $("#myList").append(this.name);
+          console.log(place.name)
+          
+        });
+      });
+
     }
   }
   
@@ -168,15 +183,21 @@ $("#add-city").on("click", function(event){
     var notes = childSnapshot.val().note;
  
         
-    $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + museumCity + "</td><td>" + museumAddress + "</td><td>" + visitDate +  "</td><td>" + notes + "</td></tr>");  
-    
+    $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + museumCity + "</td><td>" + museumAddress +"</td><td>" + visitDate +  "</td><td>" + notes + "</td><td><button id='changeRecord'>Edit</button></td><td><button id='removeRecord'>Del</button></td></tr>" );  
+
+
     // Handle the errors
     }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
   });
 
 
+
+
 //=======================================================================
-//Populate Museum Name if check box
+//
 //=======================================================================
   
+
+
+
