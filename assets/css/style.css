@@ -1,42 +1,48 @@
-/*body {
-	background: no-repeat url(../images/titleimg.jpg);
-	background-size: cover;
-    background-position: center;
-}*/
+body {
+  background: url("../images/background.jpg"); 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.navbar-brand img {
+  float: left;
+  width: 25px;
+  height: auto;
+}
 
 .navbar-brand {
 	font-size: 25px;	
-
 }
 
-.navbar {
-	padding-top: 10px;
-	padding-bottom: 10px;
+.navbar-brand img {
+	float: left;
+	width: 25px;
+	height: auto;
+}
 
+.navbar-brand {
+	font-size: 25px;
 }
 
 .navbar-default {
-    background: #3C0E50;
-    
+    background: #3C0E50;   
 }
 
 ul.nav a:hover { 
-	background: #C06DB8 !important; 
+	background: #703789 !important; 
 }
     
-
-
 .jumbotron {
 	background-image: url(../images/titleimg.jpg);
-    background-size: cover;
-    background-position: center; 
-    font-family: 'Artifika', serif;
+  background-size: cover;
+  background-position: center; 
+  font-family: 'Artifika', serif;
 	color: red;
 }
 
 .button {
   border-radius: 4px;
-  background-color: #C06DB8;
+  background-color: #7C3D97;
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -45,8 +51,8 @@ ul.nav a:hover {
   width: 95px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 5px;
 }
+
 .button span {
   cursor: pointer;
   display: inline-block;
@@ -70,4 +76,35 @@ ul.nav a:hover {
 .button:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+#museum-type-input {
+  width: 35%;
+}
+
+#map {
+     height: 700px;
+     width: 65%;
+}
+
+p {
+  margin-left: 15px;
+}
+
+#museum-view {
+  padding-left: 0px;
+}
+
+h4 {
+	font-family: 'Artifika', serif;
+	color: black !important;
+
+/*    PAGE1            */
+.panel-heading {
+    background: #3C0E50 !important;   
+}
+
+@media print {
+.print {display: block !important;}
+.noprint {display: none;}
 }

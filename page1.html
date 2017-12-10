@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <!--  <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
-    <title>Museum Search</title>
+   <title>Museum Search</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png"/>
     
     <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -21,115 +22,116 @@
     <script src="https://use.fontawesome.com/064a5d298d.js"></script>
     
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/print.css">
 
     <!-- LINK TO jQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    
-
     <!-- LINK TO FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 
 </head>
 
 <body>
-   <nav class="navbar navbar-default fixed-top" role="navigation">
-      <div class="container">
+  <nav class="navbar navbar-default fixed-top" role="navigation">
+    <div class="container">
       <!-- Navbar Header [contains both toggle button and navbar brand] -->
-         <div class="navbar-header">
-         <!-- Toggle Button [handles opening navbar components on mobile screens]-->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" aria-hidden="true">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>   
-            </button>                  
-            <!-- Navbar Brand -->
-            <span class="navbar-brand">Personalize Itinerary</span>
-         </div> 
+
+      <div class="navbar-header">
+      <!-- Toggle Button [handles opening navbar components on mobile screens]-->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" aria-hidden="true">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>   
+        </button>                  
+          <!-- Navbar Brand -->
+          <span class="navbar-brand">Personalized Itinerary</span>
+      </div> 
             
       <!-- Navbar Collapse-->
-         <div class="navbar-collapse collapse">
-         <!-- Navbar Menu -->
-            <ul class="nav navbar-nav navbar-right">     
-               <li><a href="index.html"><i class="fa fa-home fa-fw " aria-hidden="true"></i>&nbsp; Home</a></li>
-               <li><a href="page1.html"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Personalize Itinerary</a></li>
-               <li><a></a></li>
-            </ul>
-         </div>
+      <div class="navbar-collapse collapse">
+        <!-- Navbar Menu -->
+        <ul class="nav navbar-nav navbar-right">     
+          <li><a href="index.html"><i class="fa fa-home fa-fw " aria-hidden="true"></i>&nbsp; Home</a></li>
+          <li><a href="page1.html"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Personalized Itinerary</a></li>
+          <li><a></a></li>
+        </ul>  
       </div>
-   </nav> 
 
+    </div>
+  </nav> 
 
-      <div class="container">
-    
-        <div class="row">
+ <!--  <div class="container">
+    <div class="row">
 
-         <div class="col-md-4">
-            <div class="panel panel-primary">
-               <div class="panel-heading">
-                  <h3 class="panel-title"><strong>Add Museum To Visit</strong></h3>
-               </div>
-               <div class="panel-body">
-                  <form>
-                     <!--<div class="form-group">
-                        <label for="museum-type-input">Type of Museum</label>
-                        <input type="text" class="form-control" id="museum-type-input">
-                     </div> -->
-
-                     <div class="form-group">
-                        <label for="museum-name-input">Museum Name</label>
-                        <input type="text" class="form-control" id="museum-name-input">
-                     </div>
+      <div class="col-md-3 noprint">
+        <div class="panel panel-primary">
+            
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Add Museum To Visit</strong></h3>
+            </div>
+               
+            <div class="panel-body"> 
+              <form>
+                <div class="form-group">
+                  <label for="museum-name-input">Museum Name</label>
+                  <input type="text" class="form-control" id="museum-name-input">
+                </div>
                 
-                     <div class="form-group">
-                        <label for="city-input">City</label>
-                        <input type="text" class="form-control" id="city-input">
-                     </div>
-
-                     <div class="form-group">
-                        <label for="time-inputd">Visit Time (Date)</label>
-                        <input type="date" class="form-control" id="time-input">
-                     </div>
-
-                     <button  class="btn btn-primary" id="add-museum">Add To List</button>
-                  </form>               
-               </div>
-            </div> 
-         </div>
-          
-         <div class="col-md-8">
-                
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><strong>List of Museum To Visit</strong></h3>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-hover" id="visit-schedule">           
-                            <thead>
-                                <tr>
-                                    <th>Museum Name</th>
-                                    <th>City</th>
-                                    <th>Address</th>
-                                    <th>Visit Date</th>
-                                    <th>Direction? or Rating?</th>
-                                    
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>                    
+                <div class="form-group">
+                  <label for="city-input">City</label>
+                  <input type="text" class="form-control" id="city-input">
                 </div>
 
+                <div class="form-group">
+                  <label for="address-input">Address</label>
+                  <input type="address" class="form-control" id="address-input">
+                </div>
 
+                <div class="form-group">
+                  <label for="time-inputd">Visit Time (MM/DD/YYYY)</label>
+                  <input type="text" class="form-control" id="time-input">
+                </div>
 
+                <div class="form-group">
+                  <label for="notes-input">Notes</label>
+                  <input type="text" class="form-control" id="notes-input">
+                </div>
 
-
-       
+                <button  class="button" id="add-museum"><span>Wish List</span></button>
+              </form>
+            </div>
+        </div> 
+      </div> -->
+          
+      <div class="col-md-9 col-sm-offset-1 print">
+                
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>List of Museums To Visit</strong></h3>
+            </div>
             
-   
-        
-    <script type="text/javascript" src="assets/javascript/museum.js"></script>
+            <div class="panel-body">
+                <table class="table table-hover" id="visit-schedule">           
+                  <thead>
+                    <tr>
+                      <th>Museum Name</th>
+                      <!-- <th>Address</th> -->
+                      <th>Visit Date</th>
+                      <th>Notes</th>             
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+            </div>                    
+        </div>
+        <button TYPE="button" onClick="window.print()"><i class="fa fa-print" aria-hidden="true"></i></button>   
+      </div>
+
+    </div>
+                
+<script type="text/javascript" src="assets/javascript/museum.js"></script>
     
 </div>
 

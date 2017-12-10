@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
    <!--  <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
-    <title>Museum Search</title>
+   <title>Museum Search</title>
+   <link rel="icon" type="image/png" href="assets/images/logo.png"/>
     
-    <!-- Latest compiled and minified CSS -->
+   <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-   <!-- Optional theme -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-zF4BRsG/fLiTGfR9QL82DrilZxrwgY/+du4p/c7J72zZj+FLYq4zY00RylP9ZjiT" crossorigin="anonymous">
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    
     
-    <script src="https://use.fontawesome.com/064a5d298d.js"></script>
+   <script src="https://use.fontawesome.com/064a5d298d.js"></script>
     
-    <link rel="stylesheet" href="assets/css/style.css">
+   <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- LINK TO jQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    
+   <!-- LINK TO FIREBASE -->
+   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 
-    <!-- LINK TO FIREBASE -->
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-
-    <!-- LINK TO GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Artifika" rel="stylesheet">
+   <!-- LINK TO GOOGLE FONTS -->
+   <link href="https://fonts.googleapis.com/css?family=Artifika" rel="stylesheet">
 
 </head>
 
@@ -47,7 +44,7 @@
                <span class="icon-bar"></span>   
             </button>                  
             <!-- Navbar Brand -->
-            <span class="navbar-brand">Artsy Walks</span>
+            <span class="navbar-brand"><img src="assets/images/logo.png" id="logo">museology</span>
          </div> 
             
       <!-- Navbar Collapse-->
@@ -55,7 +52,7 @@
          <!-- Navbar Menu -->
             <ul class="nav navbar-nav navbar-right">        
                <li><a href="index.html"><i class="fa fa-home fa-fw " aria-hidden="true"></i>&nbsp; Home</a></li>
-               <li><a href="page1.html"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Personalize Itinerary</a></li>
+               <li><a href="page1.html"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Personalized Itinerary</a></li>
                <li><a></a></li>
             </ul>
          </div>
@@ -68,34 +65,43 @@
       <div class="jumbotron">
         <div class="container">
           <h1 class="display-3">Culture In Time!</h1>
-          <p>Summary of what this site is</p>
+          <p>explore your imagination & simplify your search for museums accross the world</p>
           
         </div>
       </div>
 
  
       <div class="container">
-         <h3>Ready To Search?</h3>
+         <div class="row">
+            <h4>Find your inspiration</h4>
+            <div id="museum-type-input">
+               <form action="/action_page.php">
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="City Name" id="city-input"
+                     name="search">
+                     <div class="input-group-btn">
+                        <button id="add-city" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                     </div>
+                  </div>   
+               </form>
+            </div>
+         </div>
          <br>
+               
+         <div class="row"> 
+            <div class="col-md-4" id="museum-view">
+               <div id="weather-location"></div>
+               <div id="museum-list"></div>
+            </div>
+            
+            <div class="col-md-8" id="map">   
+            </div>
+         </div>   
     
-          <div id="museum-view"></div>
-    
-          <form id="museum-type-input">
-            <label for="type-input">Type of Museum</label>
-            <input type="text" id="type-input">
-            <hr>
-            <!-- <input id="add-museum" type="submit" value="Search"> -->
-            <button class="button"><span>Search </span></button>
-         </form> 
-    
-      <div id="gifs-appear-here"></div>
-      
-      
-     
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcTThnPkoux2za12FFo1Lf4vPLBdskGd4&libraries=places" async defer></script>
    
-        
-    <script type="text/javascript" src="assets/javascript/museum.js"></script>
-    
+   <script type="text/javascript" src="assets/javascript/museum.js"></script>
+
 </div>
 
 

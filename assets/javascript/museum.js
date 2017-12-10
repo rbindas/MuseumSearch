@@ -1,112 +1,156 @@
+$("#add-city").on("click", function(event) {
+            event.preventDefault();
 
-// var city = $("#city-input").val().trim();
+            var lat;
+            var long;
+            // var newState = $("#state-input").val();
+            var newCity = $("#city-input").val();
 
-//Museum data from GeoNames API - but not working when using user's input
- // $.ajax({
-  //   url: "http://api.geonames.org/searchJSON?q="+city+"&maxRows=20&featureCode=MUS&username=hbriggs",
-  //   method: "GET"
-  // }).done(function(response) {
-  //    console.log(response);
-  // });
+            //==============================================================
+            //Weather data from Open Weather Map API to obtain location longitude and latitude
+            //============================================================= 
+
+            var APIKey = "c4328a51ed2c2506d6da16835ab77fe0"
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + newCity + "&units=imperial&appid=" + APIKey;
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).done(function(response) {
+                // console.log(response);
+
+                var $weatherDiv = $("<div>");
+                var $name = $("<h4><strong>" + response.name + "'s Museums</strong></h4>");
+
+                lat = response.coord.lat;
+                long = response.coord.lon;
+
+                initialize();
+                $weatherDiv.append($name);
+
+                $("#weather-location").prepend($weatherDiv);
+
+            });
+
+            // $("#state-input").val("");
+            $("#city-input").val("");
+            $("#weather-location").empty();
+            $("#museum-list").empty();
+
+            //==============================================================
+            //Google Place API code to get list of museums and map
+            //==============================================================
+            var map;
+            var service;
+            var infowindow;
+
+            function createMarker(place) {
+                var placeLoc = place.geometry.location;
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(place.name);
+                    infowindow.open(map, this);
+                });
+            }
+
+            function initialize() {
+                var selectCity = new google.maps.LatLng(lat, long);
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: selectCity,
+                    zoom: 15
+                });
+
+                var request = {
+                    location: selectCity,
+                    radius: '100',
+                    query: ['museum']
+                };
+
+                service = new google.maps.places.PlacesService(map);
+                service.textSearch(request, callback);
+            }
+
+            function callback(results, status) {
+
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        var place = results[i];
+                        var $museumDiv = $('<div>');
+                        var museum = {
+                           name: place.name,
+                           address: place.formatted_address
+                        };
+
+                        // console.log(museum.name);
+                        // console.log(museum.address);
+
+                        $museumDiv.append('<input type="checkbox" name="list" value="' + museum.name + ' ">' + museum.name + ',' + museum.address);
+
+                        $("#museum-list").append($museumDiv);
+
+                        createMarker(results[i]);
+
+                    }
+
+                    $("#museum-list").append('<button type="submit" id="submit">Add To My List</button><hr>');
+
+                    $("#submit").on("click", function() {
+                        event.preventDefault();
+                        $.each($("input[name='list']:checked"), function() {
+                            console.log(this.value);
+                            var name = this.value;                                                       
+                           database.ref().push({
+                              name: name,
+                            });
+                        });     
+                    });
+                }
+
+            }
+
+            //==============================================================
+            // FIREBASE TABLE
+            //==============================================================
+
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
+                authDomain: "museumsearch-4d634.firebaseapp.com",
+                databaseURL: "https://museumsearch-4d634.firebaseio.com",
+                projectId: "museumsearch-4d634",
+                storageBucket: "museumsearch-4d634.appspot.com",
+                messagingSenderId: "440322454720"
+            };
+
+            firebase.initializeApp(config);
+
+            var database = firebase.database();
+
+            //  Firebase event for adding museum to the database & row in the html when a user adds an entry
+            database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+               console.log(childSnapshot.val().name);
+                // Store everything into a variable.
+               var museumName = childSnapshot.val().name;
+                // console.log(museumName);
+                // var museumAddress = childSnapshot.val().address;
+
+               $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate +  "</td><td>" + notes + "</td><td><button id='changeRecord'>Edit</button></td><td><button id='removeRecord'>Del</button></td></tr>" );  
 
 
-//=============================================================
-//Museum data from GeoNames API
-//=============================================================
+                // Handle the errors
+               }, function(errorObject) {
+                  console.log("Errors handled: " + errorObject.code);
+            
+            });
 
- // $.ajax({
- //    url: "http://api.geonames.org/searchJSON?q=Madrid&maxRows=10&featureCode=MUS&username=hbriggs",
- //    method: "GET"
- //  }).done(function(response) {
- //      console.log(response);
- //      // $("#museum-appear-here").text(JSON.stringify(response));
- //      var results = response.data;
- //
- //     for (var i = 0; i <results.length; i++) {
- //        var result = results[i];
- //        var $museumDiv = $("<div>");
- //        var $p = $("<p>").text("Museum Name: " + result.name);
- //
- //       console.log(result.name);
- //
- //       $museumDiv.append($p);
- //
- //       $("#museum-appear-here").append($museumDiv);
- //      }
- //  });
+});
 
-//==============================================================
-//Weather data from Open Weather Map API
-//=============================================================
 
-   // var APIKey = "c4328a51ed2c2506d6da16835ab77fe0"
-   //  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Madrid&units=imperial&appid=" + APIKey;
-   //
-   // $.ajax({
-   //    url: queryURL,
-   //    method: "GET"
-   //  }).done(function(response) {
-   //    console.log(response);
-   //    // var weatherResults = response.data;
-   //    var $weatherDiv = $("<div>");
-   //    var $name = $("<p>").text("City: " + response.name);
-   //    var $temp = $("<p>").text("Temperature (F): " + response.main.temp);
-   //    var $long = $("<p>").text("Longitude: " + response.coord.lon);
-   //    var $lat = $("<p>").text("Latitude: " + response.coord.lat);
-   //     $weatherDiv.append($name);
-   //    $weatherDiv.append($temp);
-   //    $weatherDiv.append($long);
-   //    $weatherDiv.append($lat);
-   //    $("#weather-appear-here").prepend($weatherDiv);
-   //  });
 
-//==============================================================
-
- //Place search data from Google Places API
-  // var APIKey = "AIzaSyAqftO0kkpkObVYIPofNt_VDx02gllY0wA"
-  // var queryURL = "https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key="+APIKey+"input=museum+near%20Madrid";
-
- // $.ajax({
-  //   url: queryURL,
-  //   method: "GET"
-  // }).done(function(response) {
-  //   console.log(response);
-
-   // var $locationDiv = $("<div>");
-    // var $name = $("<p>").text("City: " + response.name);
-    // var $museum = $("<p>").text("Museum: " + response.main.temp);
-
-   // $locationDiv.append($name);
-    // $locationDiv.append($museum);
-
-   // $("#weather-appear-here").prepend($weatherDiv);
-
- // });
-
- //============================================================
-// Concert Information from Songkick API
- //============================================================
-
- var APIKey = "4Jrk00eszGqlxVKi"
- var queryURL = "http://api.songkick.com/api/3.0/search/locations.json?query=Cleveland&apikey="+APIKey;
-
- $.ajax({
-   url: queryURL,
-   method: "GET"
- }).done(function(response) {
-   console.log(response);
-
-  // var $locationDiv = $("<div>");
-  //  var $name = $("<p>").text("City: " + response.name);
-  //  var $museum = $("<p>").text("Museum: " + response.main.temp);
-  //
-  // $locationDiv.append($name);
-  //  $locationDiv.append($museum);
-
-  // $("#weather-appear-here").prepend($weatherDiv);
-
- });
-
-//==============================================================
-// TABLE
-//==============================================================
