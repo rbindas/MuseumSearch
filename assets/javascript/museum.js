@@ -1,203 +1,155 @@
+$("#add-city").on("click", function(event) {
+            event.preventDefault();
 
-$("#add-city").on("click", function(event){
-  event.preventDefault();
-  
-  var lat;
-  var long;
-  var newState = $("#state-input").val();
-  var newCity = $("#city-input").val();
+            var lat;
+            var long;
+            // var newState = $("#state-input").val();
+            var newCity = $("#city-input").val();
 
-//==============================================================
-//Weather data from Open Weather Map API to obtain location longitude and latitude
-//============================================================= 
+            //==============================================================
+            //Weather data from Open Weather Map API to obtain location longitude and latitude
+            //============================================================= 
 
-    var APIKey = "c4328a51ed2c2506d6da16835ab77fe0"
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + newCity + "&units=imperial&appid=" + APIKey;
-  
-    $.ajax({
-      url: queryURL, 
-      method: "GET"
-    }).done(function(response) {
-      // console.log(response);
+            var APIKey = "c4328a51ed2c2506d6da16835ab77fe0"
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + newCity + "&units=imperial&appid=" + APIKey;
 
-      var $weatherDiv = $("<div>");
-      var $name = $("<h4><strong>" + response.name + "'s Museums</strong></h4>"); 
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).done(function(response) {
+                // console.log(response);
 
-      lat = response.coord.lat;
-      long = response.coord.lon;
+                var $weatherDiv = $("<div>");
+                var $name = $("<h4><strong>" + response.name + "'s Museums</strong></h4>");
 
-      initialize();
-      $weatherDiv.append($name);
+                lat = response.coord.lat;
+                long = response.coord.lon;
 
-      $("#weather-location").prepend($weatherDiv);
+                initialize();
+                $weatherDiv.append($name);
 
-    });
-    
-    $("#state-input").val("");
-    $("#city-input").val("");
-    $("#weather-location").empty();
-    $("#museum-list").empty();
-  
-//==============================================================
-//Google Place API code to get list of museums and map
-//==============================================================
-  var map;
-  var service;
-  var infowindow; 
+                $("#weather-location").prepend($weatherDiv);
 
-  function createMarker(place) {
-    var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location
-    });
+            });
 
-    infowindow = new google.maps.InfoWindow();
+            // $("#state-input").val("");
+            $("#city-input").val("");
+            $("#weather-location").empty();
+            $("#museum-list").empty();
 
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name);
-      infowindow.open(map, this);
-    });
-  }
+            //==============================================================
+            //Google Place API code to get list of museums and map
+            //==============================================================
+            var map;
+            var service;
+            var infowindow;
 
-  function initialize() {
-    var selectCity = new google.maps.LatLng(lat,long);
+            function createMarker(place) {
+                var placeLoc = place.geometry.location;
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location
+                });
 
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: selectCity,
-      zoom: 15
-    });
+                infowindow = new google.maps.InfoWindow();
 
-    var request = {
-      location: selectCity,
-      radius: '100',
-      query: ['museum']
-    };
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(place.name);
+                    infowindow.open(map, this);
+                });
+            }
 
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback);
-  }
+            function initialize() {
+                var selectCity = new google.maps.LatLng(lat, long);
 
-  function callback(results, status) {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: selectCity,
+                    zoom: 15
+                });
 
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-      for (var i = 0; i < results.length; i++) {
-        // console.log(results);
-        var place = results[i];
-        
-        var $museumDiv = $("<div>");
-        var name = place.name;
-        var address = place.formatted_address;
+                var request = {
+                    location: selectCity,
+                    radius: '100',
+                    query: ['museum']
+                };
 
-        $museumDiv.append('<input type="checkbox" id="museum-name" name="museumName" value=" ' + name + ' ">' + '  ' + name);
-        $museumDiv.append('<p>' + address);
+                service = new google.maps.places.PlacesService(map);
+                service.textSearch(request, callback);
+            }
 
-        $("#museum-list").append($museumDiv);    
+            function callback(results, status) {
 
-        createMarker(results[i]);
-      } 
-      $("#museum-list").append('<button type="btn btn-default" id="check-box">Add To My List</button><hr>'); 
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        var place = results[i];
+                        var $museumDiv = $('<div>');
+                        var museum = {
+                           name: place.name,
+                           address: place.formatted_address
+                        };
 
-      $("#check-box").on("click", function(){
-        event.preventDefault();
-        var initList = $museumDiv.val();
-        console.log(initList);
+                        // console.log(museum.name);
+                        // console.log(museum.address);
 
-        $.each($("input[name='museumName']:checked"), function() {
-         
-          $("#myList").append(this.name);
-          console.log(place.name)
-          
-        });
-      });
+                        $museumDiv.append('<input type="checkbox" name="list" value="' + museum.name + ' ">' + museum.name + ',' + museum.address);
 
-    }
-  }
-  
-  });
-   
-//==============================================================
-// FIREBASE TABLE
-//==============================================================
+                        $("#museum-list").append($museumDiv);
 
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
-    authDomain: "museumsearch-4d634.firebaseapp.com",
-    databaseURL: "https://museumsearch-4d634.firebaseio.com",
-    projectId: "museumsearch-4d634",
-    storageBucket: "museumsearch-4d634.appspot.com",
-    messagingSenderId: "440322454720"
-  };
-  
-  firebase.initializeApp(config);
+                        createMarker(results[i]);
 
-  var database = firebase.database();
+                    }
 
-  $("#add-museum").on("click", function(event) {
-    event.preventDefault();
+                    $("#museum-list").append('<button type="submit" id="submit">Add To My List</button><hr>');
 
-    // Grabs user input
-    var museumName = $("#museum-name-input").val().trim();
-    var museumCity = $("#city-input").val().trim();
-    var museumAddress = $("#address-input").val().trim();
-    var visitDate = $("#time-input").val().trim();
-    var notes = $("#notes-input").val().trim();
-  
-  
-    // Uploads data to the database
-    database.ref().push({
-      name: museumName,
-      destin: museumCity,
-      address: museumAddress,
-      date: visitDate, 
-      note: notes   
-    });
+                    $("#submit").on("click", function() {
+                        event.preventDefault();
+                        $.each($("input[name='list']:checked"), function() {
+                            console.log(this.value);
+                            var name = this.value;                                                       
+                           database.ref().push({
+                              name: name,
+                            });
+                        });     
+                    });
+                }
 
-    // Logs everything to console
-    // console.log(museumName);
-    // console.log(museumCity);
-    // console.log(museumAddress);
-    // console.log(visitDate);
-    // console.log(notes);
-  
-    //Empty out form
-    $("#museum-name-input").val("");
-    $("#city-input").val("");
-    $("#address-input").val("");
-    $("#time-input").val("");
-    $("#notes-input").val("");
- 
-  });
+            }
 
-  //  Firebase event for adding train to the database & row in the html when a user adds an entry
-  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+            //==============================================================
+            // FIREBASE TABLE
+            //==============================================================
 
-    // console.log(childSnapshot.val());
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
+                authDomain: "museumsearch-4d634.firebaseapp.com",
+                databaseURL: "https://museumsearch-4d634.firebaseio.com",
+                projectId: "museumsearch-4d634",
+                storageBucket: "museumsearch-4d634.appspot.com",
+                messagingSenderId: "440322454720"
+            };
 
-    // Store everything into a variable.
-    var museumName = childSnapshot.val().name;
-    var museumCity = childSnapshot.val().destin;
-    var museumAddress = childSnapshot.val().address;
-    var visitDate = childSnapshot.val().date;
-    var notes = childSnapshot.val().note;
- 
-        
-    $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + museumCity + "</td><td>" + museumAddress +"</td><td>" + visitDate +  "</td><td>" + notes + "</td><td><button id='changeRecord'>Edit</button></td><td><button id='removeRecord'>Del</button></td></tr>" );  
+            firebase.initializeApp(config);
 
+            var database = firebase.database();
 
-    // Handle the errors
-    }, function(errorObject) {
-      console.log("Errors handled: " + errorObject.code);
-  });
+            //  Firebase event for adding museum to the database & row in the html when a user adds an entry
+            database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+               console.log(childSnapshot.val().name);
+                // Store everything into a variable.
+               var museumName = childSnapshot.val().name;
+                // console.log(museumName);
+                // var museumAddress = childSnapshot.val().address;
 
+                $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td>");
 
+                // Handle the errors
+               }, function(errorObject) {
+                  console.log("Errors handled: " + errorObject.code);
+            
+            });
 
-
-//=======================================================================
-//
-//=======================================================================
-  
+});
 
 
 
