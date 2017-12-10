@@ -141,7 +141,8 @@ $("#add-city").on("click", function(event) {
                 // console.log(museumName);
                 // var museumAddress = childSnapshot.val().address;
 
-                $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td>");
+               $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate +  "</td><td>" + notes + "</td><td><button id='changeRecord'>Edit</button></td><td><button id='removeRecord'>Del</button></td></tr>" );  
+
 
                 // Handle the errors
                }, function(errorObject) {
