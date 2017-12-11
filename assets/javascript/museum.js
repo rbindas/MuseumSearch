@@ -8,7 +8,7 @@ $("#add-city").on("click", function(event) {
 
             //==============================================================
             //Weather data from Open Weather Map API to obtain location longitude and latitude
-            //============================================================= 
+            //=============================================================
 
             var APIKey = "c4328a51ed2c2506d6da16835ab77fe0"
             var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + newCity + "&units=imperial&appid=" + APIKey;
@@ -105,11 +105,11 @@ $("#add-city").on("click", function(event) {
                         event.preventDefault();
                         $.each($("input[name='list']:checked"), function() {
                             console.log(this.value);
-                            var name = this.value;                                                       
+                            var name = this.value;
                            database.ref().push({
                               name: name,
                             });
-                        });     
+                        });
                     });
                 }
 
@@ -141,16 +141,11 @@ $("#add-city").on("click", function(event) {
                 // console.log(museumName);
                 // var museumAddress = childSnapshot.val().address;
 
-               $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate +  "</td><td>" + notes + "</td><td><button id='changeRecord'>Edit</button></td><td><button id='removeRecord'>Del</button></td></tr>" );  
+               $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate +  "</td><td>" + notes + "</td><td><button id='changeRecord'>Edit</button></td><td><button id='removeRecord'>Del</button></td></tr>" );
 
 
                 // Handle the errors
                }, function(errorObject) {
                   console.log("Errors handled: " + errorObject.code);
-            
             });
-
 });
-
-
-

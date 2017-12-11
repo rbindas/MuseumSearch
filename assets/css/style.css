@@ -1,5 +1,5 @@
 body {
-  background: url("../images/background.jpg"); 
+  background: url("../images/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -11,7 +11,7 @@ body {
 }
 
 .navbar-brand {
-	font-size: 25px;	
+	font-size: 25px;
 }
 
 .navbar-brand img {
@@ -25,17 +25,17 @@ body {
 }
 
 .navbar-default {
-    background: #3C0E50;   
+    background: #3C0E50;
 }
 
-ul.nav a:hover { 
-	background: #703789 !important; 
+ul.nav a:hover {
+	background: #703789 !important;
 }
-    
+
 .jumbotron {
 	background-image: url(../images/titleimg.jpg);
   background-size: cover;
-  background-position: center; 
+  background-position: center;
   font-family: 'Artifika', serif;
 	color: red;
 }
@@ -101,10 +101,76 @@ h4 {
 
 /*    PAGE1            */
 .panel-heading {
-    background: #3C0E50 !important;   
+    background: #3C0E50 !important;
 }
 
 @media print {
 .print {display: block !important;}
 .noprint {display: none;}
+}
+
+/*css for sign up and login*/
+.nav-tabs {
+    margin-bottom: 15px;
+}
+.sign-with {
+    margin-top: 25px;
+    padding: 20px;
+}
+#OR {
+    height: 30px;
+    width: 30px;
+    border: 1px solid #C2C2C2;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 28px;
+    text-align: center;
+    font-size: 12px;
+    float: right;
+    position: absolute;
+    right: -16px;
+    top: 40%;
+    z-index: 1;
+    background: #DFDFDF;
+}
+#login{
+  border-radius: 4px;
+  background-color: #7C3D97;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  width: 95px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+#login span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+#login span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+#login:hover span {
+  padding-right: 25px;
+}
+
+#login:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.googleSign{
+  background: url("../images/googlelightbtn.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
