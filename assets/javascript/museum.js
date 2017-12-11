@@ -100,6 +100,9 @@ $("#add-city").on("click", function(event) {
 
             $("#submit").on("click", function() {
                 event.preventDefault();
+                
+                window.location.href = 'page1.html';
+
                 $.each($("input[name='list']:checked"), function() {
                     console.log(this.value);
                     var museumName = this.value;
