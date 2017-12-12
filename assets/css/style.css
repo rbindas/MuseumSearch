@@ -87,8 +87,16 @@ ul.nav a:hover {
      width: 65%;
 }
 
+.blue-letters {
+  color: #00FFFF;
+  font-weight: bold;
+  font-size: 25px;
+  font-style: italic;
+}
+
 p {
   margin-left: 15px;
+  color: #FFE4E1;
 }
 
 #museum-view {
@@ -98,6 +106,10 @@ p {
 h4 {
 	font-family: 'Artifika', serif;
 	color: black !important;
+}
+
+#email-input {
+  width: 300px;
 }
 
 /*    PAGE1            */

@@ -3,7 +3,7 @@ $("#add-city").on("click", function(event) {
 
     var lat;
     var long;
-    // var newState = $("#state-input").val();
+
     var newCity = $("#city-input").val();
 
     //==============================================================
@@ -32,7 +32,6 @@ $("#add-city").on("click", function(event) {
 
     });
 
-    // $("#state-input").val("");
     $("#city-input").val("");
     $("#weather-location").empty();
     $("#museum-list").empty();
@@ -100,32 +99,32 @@ $("#add-city").on("click", function(event) {
 
             $("#submit").on("click", function() {
                 event.preventDefault();
-                
+
                 window.location.href = 'page1.html';
 
                 $.each($("input[name='list']:checked"), function() {
                     console.log(this.value);
                     var museumName = this.value;
+                    // var visitDate = "add later";
+                    // var notes = "add later";
 
                     database.ref().push({
-                        museumName: museumName
+                        museumName: museumName,
+                        // visitDate: visitDate,
+                        // notes: notes
                     });
+
                     database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
                         console.log(childSnapshot.val());
+                        // console.log("firebase snapkey" + childSnapshot.val().snapKey());
 
                         var cs = childSnapshot.val();
-
                         var museumName = cs.museumName;
-                        // var visitDate = cs.visitDate;
-                        // var notes = cs.notes;
-                        // var museumAddress = cs.address;
+                        var visitDate = cs.visitDate;
+                        var notes = cs.notes;
 
                         console.log(museumName);
-                        // console.log(visitDate);
-                        // console.log(notes);
-
-                        $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td><button id='changeRecord'>Edit</button></td><td><button id='removeRecord'>Del</button></td></tr>");
 
                         // Handle the errors
                     }, function(errorObject) {
@@ -177,7 +176,6 @@ $("#add-museum").on("click", function() {
 
     // Logs everything to console
     console.log(museumName);
-    // console.log(museumAddress);
     console.log(visitDate);
     console.log(notes);
 
@@ -193,6 +191,7 @@ $("#add-museum").on("click", function() {
 database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
     console.log(childSnapshot.val());
+    // console.log("firebase snapkey" + childSnapshot.val().snapKey());
 
     var cs = childSnapshot.val();
 
@@ -205,11 +204,16 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
     console.log(visitDate);
     console.log(notes);
 
-    $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td></tr>");
+    $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td><td><button id='remove' onClick='deleteItem(\"" + childSnapshot.key + "\")'>X</button></td></tr>");
+
+    function deleteItem(key) {
+        database.ref().child(key).remove();
+        console.log("tacos");
+        // $("#visit-schedule").on('click',"#remove");
+    }
 
     // Handle the errors
 }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
 
 });
-
