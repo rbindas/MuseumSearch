@@ -37,7 +37,7 @@ ul.nav a:hover {
   background-size: cover;
   background-position: center; 
   font-family: 'Artifika', serif;
-	color: red;
+	color: blue;
 }
 
 .button {
@@ -88,7 +88,7 @@ ul.nav a:hover {
 }
 
 .blue-letters {
-  color: #00FFFF;
+  color: blue;
   font-weight: bold;
   font-size: 25px;
   font-style: italic;
@@ -115,6 +115,34 @@ h4 {
 /*    PAGE1            */
 .panel-heading {
     background: #3C0E50 !important;   
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-style: italic;
+}
+
+#btnLogin {   
+    background: #703789;
+    font-size: 15px;
+    border-color: #703789;
+    border-radius: 5px;
+}
+
+#email-input, #password-input {
+  border-radius: 5px;
+}
+
+h5 {
+  color: black;
+}
+
+#submit {
+  background: #703789;
+    font-size: 15px;
+    border-color: #703789;
+    border-radius: 5px;
 }
 
 @media print {

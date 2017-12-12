@@ -6,9 +6,9 @@ $("#add-city").on("click", function(event) {
 
     var newCity = $("#city-input").val();
 
-    //==============================================================
+    //=================================================================================
     //Weather data from Open Weather Map API to obtain location longitude and latitude
-    //============================================================= 
+    //================================================================================= 
 
     var APIKey = "c4328a51ed2c2506d6da16835ab77fe0"
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + newCity + "&units=imperial&appid=" + APIKey;
@@ -36,9 +36,9 @@ $("#add-city").on("click", function(event) {
     $("#weather-location").empty();
     $("#museum-list").empty();
 
-    //==============================================================
+    //==================================================================================
     //Google Place API code to get list of museums and map
-    //==============================================================
+    //==================================================================================
     var map;
     var service;
     var infowindow;
@@ -87,7 +87,7 @@ $("#add-city").on("click", function(event) {
                     address: place.formatted_address
                 };
 
-                $museumDiv.append('<input type="checkbox" name="list" value="' + museum.name + "\n" + museum.address + ' ">' + museum.name + ',' + museum.address);
+                $museumDiv.append('<h5><input type="checkbox" name="list" value="' + museum.name + "\n" + museum.address + ' "> &nbsp' + museum.name + ', &nbsp' + museum.address + '</h5>');
 
                 $("#museum-list").append($museumDiv);
 
@@ -95,7 +95,7 @@ $("#add-city").on("click", function(event) {
 
             }
 
-            $("#museum-list").append('<button type="submit" id="submit">Add To My List</button><hr>');
+            $("#museum-list").append('<button class="btn btn-primary" type="submit" id="submit">Add To My List</button><hr>');
 
             $("#submit").on("click", function() {
                 event.preventDefault();
@@ -114,106 +114,99 @@ $("#add-city").on("click", function(event) {
                         // notes: notes
                     });
 
-                    database.ref().on("child_added", function(childSnapshot, prevChildKey) {
-
-                        console.log(childSnapshot.val());
-                        // console.log("firebase snapkey" + childSnapshot.val().snapKey());
-
-                        var cs = childSnapshot.val();
-                        var museumName = cs.museumName;
-                        var visitDate = cs.visitDate;
-                        var notes = cs.notes;
-
-                        console.log(museumName);
-
                         // Handle the errors
                     }, function(errorObject) {
                         console.log("Errors handled: " + errorObject.code);
 
                     });
                 });
-            });
+            };
         }
 
-    }
-
-});
-
-//==============================================================
-// FIREBASE TABLE
-//==============================================================
-
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
-    authDomain: "museumsearch-4d634.firebaseapp.com",
-    databaseURL: "https://museumsearch-4d634.firebaseio.com",
-    projectId: "museumsearch-4d634",
-    storageBucket: "museumsearch-4d634.appspot.com",
-    messagingSenderId: "440322454720"
-};
-
-firebase.initializeApp(config);
-
-var database = firebase.database();
-
-$("#add-museum").on("click", function() {
-    event.preventDefault();
-
-    var museumName = $("#museum-name-input").val().trim();
-    // var museumAddress = $("#address-input").val().trim();
-    var visitDate = $("#time-input").val().trim();
-    var notes = $("#notes-input").val().trim();
-
-
-    // Uploads data to the database
-    database.ref().push({
-        museumName: museumName,
-        // museumAddress: museumAddress,
-        visitDate: visitDate,
-        notes: notes
     });
 
-    // Logs everything to console
-    console.log(museumName);
-    console.log(visitDate);
-    console.log(notes);
+    //==============================================================
+    // FIREBASE TABLE
+    //==============================================================
 
-    //Empty out form
-    $("#museum-name-input").val("");
-    // $("#address-input").val("");
-    $("#time-input").val("");
-    $("#notes-input").val("");
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
+        authDomain: "museumsearch-4d634.firebaseapp.com",
+        databaseURL: "https://museumsearch-4d634.firebaseio.com",
+        projectId: "museumsearch-4d634",
+        storageBucket: "museumsearch-4d634.appspot.com",
+        messagingSenderId: "440322454720"
+    };
 
-})
+    firebase.initializeApp(config);
 
-//  Firebase event for adding museum to the database & row in the html when a user adds an entry
-database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+    var database = firebase.database();
 
-    console.log(childSnapshot.val());
-    // console.log("firebase snapkey" + childSnapshot.val().snapKey());
+    $("#add-museum").on("click", function() {
+        event.preventDefault();
 
-    var cs = childSnapshot.val();
+        var museumName = $("#museum-name-input").val().trim();
+        // var museumAddress = $("#address-input").val().trim();
+        var visitDate = $("#time-input").val().trim();
+        var notes = $("#notes-input").val().trim();
 
-    var museumName = cs.museumName;
-    var visitDate = cs.visitDate;
-    var notes = cs.notes;
-    // var museumAddress = cs.address;
 
-    console.log(museumName);
-    console.log(visitDate);
-    console.log(notes);
+        // Uploads data to the database
+        database.ref().push({
+            museumName: museumName,
+            // museumAddress: museumAddress,
+            visitDate: visitDate,
+            notes: notes
+        });
 
-    $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td><td><button id='remove' onClick='deleteItem(\"" + childSnapshot.key + "\")'>X</button></td></tr>");
+        // Logs everything to console
+        console.log(museumName);
+        console.log(visitDate);
+        console.log(notes);
 
-    function deleteItem(key) {
-        database.ref().child(key).remove();
-        console.log("tacos");
-        // $("#visit-schedule").on('click',"#remove");
-    }
+        //Empty out form
+        $("#museum-name-input").val("");
+        // $("#address-input").val("");
+        $("#time-input").val("");
+        $("#notes-input").val("");
 
-    // Handle the errors
-}, function(errorObject) {
-    console.log("Errors handled: " + errorObject.code);
+    })
 
-});
+    //  Firebase event for adding museum to the database & row in the html when a user adds an entry
+    database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+
+        console.log(childSnapshot.val());
+
+        var cs = childSnapshot.val();
+        var key = childSnapshot.key;
+        console.log("firebase snapkey is " + key);
+
+        var museumName = cs.museumName;
+        var visitDate = cs.visitDate;
+        var notes = cs.notes;
+        // var museumAddress = cs.address;
+
+        console.log(museumName);
+        console.log(visitDate);
+        console.log(notes);
+
+        $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td></tr>");
+
+        //Still researching on how to incorporate delete button
+        //=============================================================================
+        // $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td><td><button id='remove-btn' onClick='deleteItem(\"" + key + "\")'>X</button></td></tr>");
+
+        // function deleteItem(key) {
+        //     database.ref().child(key).remove();
+        //     console.log("tacos");     
+        //     //     // $("#visit-schedule").on('click',"#removeRecord");
+        // }
+        //==============================================================================
+        
+        // Handle the errors
+    }, function(errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+
+    });
+
