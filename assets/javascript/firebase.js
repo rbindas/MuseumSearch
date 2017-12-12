@@ -1,3 +1,7 @@
+//==============================================================
+//Creates Anonymous Authentication
+//==============================================================
+
 var config = {
   apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
   authDomain: "museumsearch-4d634.firebaseapp.com",
@@ -22,21 +26,5 @@ btnLogin.addEventListener('click', e => {
   // ...
   location.href = "index.html";
 });
-
-});
-
-// click logout event addListener
-btnLogout.addEventListener('click', e => {
-  firebase.auth().signOut()
-
-});
-// Auth Listener
-firebase.auth().onAuthStateChanged(firebaseUser => {
-  console.log(firebaseUser);
-  if (firebaseUser) {
-    btnLogout.classList.remove('hide')
-  } else {
-    btnLogout.classList.add('hide')
-  }
 
 });
