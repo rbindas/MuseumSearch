@@ -205,7 +205,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
     console.log(visitDate);
     console.log(notes);
 
-    $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td><td><button id='changeRecord'>Edit</button></td><td><button id='removeRecord'>Del</button></td></tr>");
+    $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td></tr>");
 
     // Handle the errors
 }, function(errorObject) {
@@ -213,4 +213,3 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
 });
 
-// });
