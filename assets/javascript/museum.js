@@ -114,99 +114,96 @@ $("#add-city").on("click", function(event) {
                         // notes: notes
                     });
 
-                        // Handle the errors
-                    }, function(errorObject) {
-                        console.log("Errors handled: " + errorObject.code);
+                    // Handle the errors
+                }, function(errorObject) {
+                    console.log("Errors handled: " + errorObject.code);
 
-                    });
                 });
-            };
-        }
+            });
+        };
+    }
 
+});
+
+//==============================================================
+// FIREBASE TABLE
+//==============================================================
+
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
+    authDomain: "museumsearch-4d634.firebaseapp.com",
+    databaseURL: "https://museumsearch-4d634.firebaseio.com",
+    projectId: "museumsearch-4d634",
+    storageBucket: "museumsearch-4d634.appspot.com",
+    messagingSenderId: "440322454720"
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+$("#add-museum").on("click", function() {
+    event.preventDefault();
+
+    var museumName = $("#museum-name-input").val().trim();
+    // var museumAddress = $("#address-input").val().trim();
+    var visitDate = $("#time-input").val().trim();
+    var notes = $("#notes-input").val().trim();
+
+
+    // Uploads data to the database
+    database.ref().push({
+        museumName: museumName,
+        // museumAddress: museumAddress,
+        visitDate: visitDate,
+        notes: notes
     });
 
-    //==============================================================
-    // FIREBASE TABLE
-    //==============================================================
+    // Logs everything to console
+    // console.log(museumName);
+    // console.log(visitDate);
+    // console.log(notes);
 
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyBIh3Eaa12mCe_gUGOPUMVE9JT_-1oT_eo",
-        authDomain: "museumsearch-4d634.firebaseapp.com",
-        databaseURL: "https://museumsearch-4d634.firebaseio.com",
-        projectId: "museumsearch-4d634",
-        storageBucket: "museumsearch-4d634.appspot.com",
-        messagingSenderId: "440322454720"
-    };
+    //Empty out form
+    $("#museum-name-input").val("");
+    // $("#address-input").val("");
+    $("#time-input").val("");
+    $("#notes-input").val("");
 
-    firebase.initializeApp(config);
+})
 
-    var database = firebase.database();
+//  Firebase event for adding museum to the database & row in the html when a user adds an entry
+database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
-    $("#add-museum").on("click", function() {
-        event.preventDefault();
+    console.log(childSnapshot.val());
 
-        var museumName = $("#museum-name-input").val().trim();
-        // var museumAddress = $("#address-input").val().trim();
-        var visitDate = $("#time-input").val().trim();
-        var notes = $("#notes-input").val().trim();
+    var cs = childSnapshot.val();
+    var key = childSnapshot.key;
+    console.log("firebase snapkey is " + key);
 
+    var museumName = cs.museumName;
+    var visitDate = cs.visitDate;
+    var notes = cs.notes;
+    // var museumAddress = cs.address;
 
-        // Uploads data to the database
-        database.ref().push({
-            museumName: museumName,
-            // museumAddress: museumAddress,
-            visitDate: visitDate,
-            notes: notes
-        });
+    console.log(museumName);
+    console.log(visitDate);
+    console.log(notes);
 
-        // Logs everything to console
-        console.log(museumName);
-        console.log(visitDate);
-        console.log(notes);
+    $("#visit-schedule > tbody").append("<tr id=" + childSnapshot.key + "><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td><td><button id='remove-btn' onClick='deleteItem(\"" + key + "\")'>X</button></td></tr>");
 
-        //Empty out form
-        $("#museum-name-input").val("");
-        // $("#address-input").val("");
-        $("#time-input").val("");
-        $("#notes-input").val("");
+    // Handle the errors
+}, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
 
-    })
+});
 
-    //  Firebase event for adding museum to the database & row in the html when a user adds an entry
-    database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+//Remove record from firebase and html
+database.ref().on("child_removed", function(childSnapshot) {
+    $("#" + childSnapshot.key).remove();
+});
 
-        console.log(childSnapshot.val());
-
-        var cs = childSnapshot.val();
-        var key = childSnapshot.key;
-        console.log("firebase snapkey is " + key);
-
-        var museumName = cs.museumName;
-        var visitDate = cs.visitDate;
-        var notes = cs.notes;
-        // var museumAddress = cs.address;
-
-        console.log(museumName);
-        console.log(visitDate);
-        console.log(notes);
-
-        $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td></tr>");
-
-        //Still researching on how to incorporate delete button
-        //=============================================================================
-        // $("#visit-schedule > tbody").append("<tr><td>" + museumName + "</td><td>" + visitDate + "</td><td>" + notes + "</td><td><button id='remove-btn' onClick='deleteItem(\"" + key + "\")'>X</button></td></tr>");
-
-        // function deleteItem(key) {
-        //     database.ref().child(key).remove();
-        //     console.log("tacos");     
-        //     //     // $("#visit-schedule").on('click',"#removeRecord");
-        // }
-        //==============================================================================
-        
-        // Handle the errors
-    }, function(errorObject) {
-        console.log("Errors handled: " + errorObject.code);
-
-    });
-
+function deleteItem(key) {
+    database.ref().child(key).remove();
+}
